@@ -1,4 +1,4 @@
-# Cohort-4 Cypress Training
+# Testing
 
 This is introducing the class to automation
 
@@ -18,7 +18,4 @@ This is introducing the class to automation
 * From the terminal of the repository, run `npx cypress run --browser firefox` to run headlessly with a specific browser
 
 ## Contributor
-[Ademola Bhadmus](https://bhadmusautomates.com/)
-
-## Issues
-- All Issues should be reported [here](https://github.com/bhadmus/Cohort-4/issues)
+[Ayanloye Segun](/)
