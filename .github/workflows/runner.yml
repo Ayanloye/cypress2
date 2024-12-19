@@ -1,0 +1,38 @@
+name: Run Cypress Test
+
+on: [push]
+
+env:
+    CYPRESS_KEY: ${{secrets.CYPRESS_MAILSLURP_API_KEY}}
+
+jobs:
+    test-exec:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Setup Node
+          uses: actions/checkout@v4
+
+        - name: Run Cypress Scripts 
+          uses: cypress-io/github-action@v6 
+          with:
+            record: true
+            parallel: true
+          env:
+            CYPRESS_MAILSLURP_API_KEY: ${{env.CYPRESS_KEY}}
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+        - name: Save Results To Repo
+          uses: actions/upload-artifact@v3
+          with: 
+            name: results
+            path: cypress/reports/html/results.html  
+
+        - name: Upload to Browserstack
+          uses: browserstack/github-actions/setup-env@master
+          with:
+            username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+            access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+        - run: npm i
+        - run: npx browserstack-cypress run    
